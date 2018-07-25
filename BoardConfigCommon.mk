@@ -149,6 +149,9 @@ TARGET_QCOM_NO_FM_FIRMWARE := true
 USE_DEVICE_SPECIFIC_GPS := true
 TARGET_NO_RPC := true
 
+#Enable DRM plugins 64 bit compilation
+TARGET_ENABLE_MEDIADRM_64 := true
+
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := sdfat
 
