@@ -51,7 +51,7 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 #TARGET_KERNEL_CLANG_PATH := ~/syberia/prebuilts/clang/host/linux-x86/clang-4691093/bin/
 
 # ANT
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+# BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
