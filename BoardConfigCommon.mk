@@ -17,6 +17,7 @@
 VENDOR_PATH := device/xiaomi/msm8953-common
 
 TARGET_SPECIFIC_HEADER_PATH := $(VENDOR_PATH)/include
+ANDROID_TOP := $(shell pwd)
 
 # Architecture
 TARGET_ARCH := arm64
@@ -46,9 +47,10 @@ BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-#TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_CLANG_COMPILE := true
 #TARGET_KERNEL_CLANG_VERSION := 7.0.2
-#TARGET_KERNEL_CLANG_PATH := ~/syberia/prebuilts/clang/host/linux-x86/clang-4691093/bin/
+TARGET_KERNEL_CLANG_VERSION := clang-4691093
+TARGET_KERNEL_CLANG_PATH := $(ANDROID_TOP)/prebuilts/clang/host/$(HOST_OS)-x86/$(TARGET_KERNEL_CLANG_VERSION)/bin
 
 # ANT
 # BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
