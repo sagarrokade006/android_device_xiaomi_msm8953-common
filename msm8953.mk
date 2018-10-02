@@ -385,3 +385,7 @@ PRODUCT_COPY_FILES += \
 
 # HWUI and Dalvik VM overrides
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+
+# OTA Updates
+PRODUCT_PACKAGES += \
+	Updates
