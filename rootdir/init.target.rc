@@ -45,6 +45,11 @@ on fs
 on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
+    # set default schedTune value for foreground/top-app (only affects EAS)
+	  write /dev/stune/foreground/schedtune.prefer_idle 1
+	  write /dev/stune/top-app/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -206,13 +211,11 @@ on boot
 	chown system system /dev/cpuset/camera-daemon/tasks
 	chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-	write /dev/stune/foreground/schedtune.prefer_idle 1
-	write /dev/stune/top-app/schedtune.boost 0
-	write /dev/stune/top-app/schedtune.prefer_idle 1
-	write /dev/stune/top-app/schedtune.dynamic_boost 1
-	write /dev/stune/rt/schedtune.boost 30
-	write /dev/stune/rt/schedtune.prefer_idle 1
-	write /dev/stune/foreground/schedtune.prefer_idle 1
+  # set default schedTune value for foreground/top-app (only affects EAS)
+  write /dev/stune/foreground/schedtune.prefer_idle 1
+  write /dev/stune/top-app/schedtune.prefer_idle 1
+  write /dev/stune/top-app/schedtune.boost 1
+  write /dev/stune/top-app/schedtune.sched_boost 0
 
 on enable-eas-power
   # Will only work if using EAS
@@ -221,23 +224,20 @@ on enable-eas-power
   write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
   write /sys/devices/system/cpu/cpufreq/schedutil/up_rate_limit_us 500
   write /sys/devices/system/cpu/cpufreq/schedutil/down_rate_limit_us 20000
-  write /sys/devices/system/cpu/cpufreq/schedutil/iowait_boost_enable 0
+  write /sys/devices/system/cpu/cpufreq/schedutil/iowait_boost_enable 1
 
   # Enable input boost configuration
   write /sys/module/cpu_boost/parameters/input_boost_freq "0:1036800"
-  write /sys/module/cpu_boost/parameters/dynamic_stune_boost 1
-  write /sys/module/cpu_boost/parameters/input_boost_ms 100
+  write /sys/module/cpu_boost/parameters/dynamic_stune_boost 0
+  write /sys/module/cpu_boost/parameters/input_boost_ms 64
 
-  #Set IO scheduler to Maple
+  # Set IO scheduler to Maple
   setprop sys.io.scheduler "maple"
 
-  #schedtune stuff
-  write /dev/stune/rt/schedtune.boost 0
+  # Toggle Sched Features
+  write /sys/kernel/debug/sched_features "NO_FBT_STRICT_ORDER"
 
-  # Disable sched boost
-  write /proc/sys/kernel/sched_boost 0
 
-  
 on property:sys.boot_completed=1
   trigger enable-eas-power
 
@@ -247,4 +247,3 @@ service ppd /vendor/bin/mm-pp-dpps
     group system graphics
     socket pps stream 0660 system system
     disabled
-
