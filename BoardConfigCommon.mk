@@ -208,6 +208,9 @@ endif
 #include device/qcom/sepolicy/sepolicy.mk
 #BOARD_SEPOLICY_DIRS += $(VENDOR_PATH)/sepolicy
 
+# Root
+BOARD_ROOT_EXTRA_FOLDERS := persist
+
 # Security patch level
 VENDOR_SECURITY_PATCH := 2018-07-01
 
