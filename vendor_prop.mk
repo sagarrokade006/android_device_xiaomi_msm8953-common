@@ -14,6 +14,12 @@
 # limitations under the License.
 #
 
+
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+dalvik.vm.dex2oat-filter=speed \
+dalvik.vm.image-dex2oat-filter=speed
+
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
@@ -90,7 +96,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=0 \
     debug.enable.sglscale=1 \
-    debug.gralloc.enable_fb_ubwc=1 \
     debug.mdpcomp.logs=0 \
     debug.sf.enable_hwc_vds=1 \
     debug.sf.hw=0 \
@@ -103,12 +108,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true \
     ro.opengles.version=196610 \
     ro.qualcomm.cabl=0 \
-    ro.sf.lcd_density=440 \
-    sdm.debug.disable_skip_validate=1 \
-    sdm.debug.rotator_downscale=1 \
     vendor.display.disable_skip_validate=1 \
     vendor.display.perf_hint_window=50 \
     vendor.gralloc.enable_fb_ubwc=1
+    vendor.display.rotator_downscale=1
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -145,17 +148,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024
 
-#LKMD
-PRODUCT_PROPERTY_OVERRIDES += \
+#LMKD props
+    PRODUCT_PROPERTY_OVERRIDES += \
     ro.lmk.low=1001 \
     ro.lmk.medium=800 \
     ro.lmk.critical=0 \
     ro.lmk.critical_upgrade=false \
     ro.lmk.upgrade_pressure=100 \
     ro.lmk.downgrade_pressure=100 \
-    ro.lmk.kill_heaviest_task=true \
-    ro.lmk.kill_timeout_ms=100 \
-    ro.lmk.use_minfree_levels=true
+    ro.lmk.kill_heaviest_task=true
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -175,7 +176,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.fw.dex2oat_thread_count=4 \
+    ro.sys.fw.dex2oat_thread_count=8 \
     ro.vendor.extension_library=libqti-perfd-client.so
 
 # Netmgrd
@@ -198,7 +199,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Property to enable display default color mode
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.display.enable_default_color_mode=1
+    vendor.display.enable_default_color_mode=0
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -248,3 +249,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
